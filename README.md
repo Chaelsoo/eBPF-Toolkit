@@ -34,7 +34,7 @@ TLS  curl              2922242  INBOUND   537 bytes  ...<!doctype html><html lan
 
 ## Architecture
 
-![Architecture](src/images/architecture.png)
+![Architecture](src/images/layout.png)
 
 ```
  KERNEL SPACE (eBPF)                        USERSPACE (C + libbpf)
