@@ -34,7 +34,7 @@ TLS  curl              2922242  INBOUND   537 bytes  ...<!doctype html><html lan
 
 ## Architecture
 
-![Architecture](images/architecture.png)
+![Architecture](src/images/architecture.png)
 
 ```
  KERNEL SPACE (eBPF)                        USERSPACE (C + libbpf)
@@ -143,11 +143,11 @@ DNS events include a `domain` field:
 
 Without TLS, applications talk directly to the kernel's TCP stack. With TLS, an OpenSSL library sits between the application and the kernel -- and that's where the tool hooks in:
 
-![TLS tracing overview](images/tls-tracing-overview.png)
+![TLS tracing overview](src/images/tls-tracing-overview.png)
 
 The tool automatically discovers the system `libssl.so` and resolves `SSL_write` / `SSL_read` symbol offsets at startup. It uses the SSL struct's memory layout to locate the right function addresses:
 
-![SSL struct memory layout](images/ssl-struct-memory-layout.png)
+![SSL struct memory layout](src/images/ssl-struct-memory-layout.png)
 
 It then attaches uprobes to those functions:
 
