@@ -2,10 +2,6 @@
 
 A Linux network security visibility tool built with eBPF. It hooks into kernel TCP functions and OpenSSL library calls to monitor connections and intercept TLS plaintext in real time, with minimal overhead.
 
-## Why this exists
-
-I was working on an anomaly-detection IDS trained on network traffic, but the results were limited -- most real traffic is encrypted, which makes classic packet capture useless for content analysis. That pushed me to look at eBPF as a way to get visibility into traffic before it gets encrypted. This tool hooks into the kernel's TCP stack for connection metadata and into OpenSSL for plaintext content. The JSON export can feed captured data directly into ML pipelines as training data.
-
 ## What it does
 
 **TCP monitoring** -- kprobes on `tcp_connect`, `tcp_sendmsg`, `tcp_recvmsg`, and `tcp_close` capture every TCP connection lifecycle event per process, including source/destination IPs, ports, byte counts, and process info.
@@ -169,16 +165,6 @@ sudo docker run -d --name test-nginx -p 8080:80 nginx
 curl http://localhost:8080
 # nginx traffic will be tagged with the container ID
 ```
-
-## Limitations
-
-- Only intercepts processes that dynamically link against the system `libssl.so`. Applications with statically linked or bundled TLS (Node.js, Go, Rust, Java) are not captured.
-- IPv4 only. IPv6 connections are filtered out.
-- TLS payload capture is capped at 4095 bytes per call.
-- RX byte count shows the requested buffer size, not actual bytes received.
-- DNS monitoring only captures outbound UDP queries to port 53.
-- Container detection supports Docker cgroup patterns only (not podman, containerd, etc.).
-
 ## Project structure
 
 ```
