@@ -1,3 +1,4 @@
+/* tls_intercept.h — shared between BPF and userspace */
 #ifndef __TLS_INTERCEPT_H
 #define __TLS_INTERCEPT_H
 
@@ -8,18 +9,18 @@
 #endif
 
 enum tls_direction {
-	TLS_WRITE = 0,
-	TLS_READ  = 1,
+	TLS_WRITE = 0,   /* SSL_write: plaintext before encryption */
+	TLS_READ  = 1,   /* SSL_read:  plaintext after decryption  */
 };
 
 struct tls_event {
 	__u64 ts_ns;
 	__u32 pid;
-	__u32 data_len;
+	__u32 data_len;          /* bytes captured in buf (≤ TLS_BUF_SIZE) */
 	__u8  comm[TASK_COMM_LEN];
-	__u8  direction;
+	__u8  direction;         /* enum tls_direction */
 	__u8  pad[3];
 	__u8  buf[TLS_BUF_SIZE];
 };
 
-#endif
+#endif /* __TLS_INTERCEPT_H */

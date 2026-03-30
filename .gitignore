@@ -1,0 +1,13 @@
+# Compiled binary
+ebpf-netsec
+
+# Generated BPF objects and skeletons
+src/*.bpf.o
+src/*.skel.h
+
+# Generated kernel types (huge, machine-specific)
+src/vmlinux.h
+
+# Claude Code config
+.claude/
+CLAUDE.md
