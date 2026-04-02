@@ -1,4 +1,4 @@
-# ebpf-netsec
+# eBPF-Monitor
 
 A Linux network security visibility tool built with eBPF. It hooks into kernel TCP functions and OpenSSL library calls to monitor connections and intercept TLS plaintext in real time, with minimal overhead.
 
